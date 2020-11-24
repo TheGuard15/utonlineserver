@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<project name="utonlineserver" default="package" basedir="../">
+
+    <property name="src.dir" location="src" />
+    <property name="bin.dir" location="bin" />
+    <property name="bin.name" value="utonlineserver"/>
+    <property name="package.dir" location="package"/>
+    <property name="out.dir" location="out"/>
+
+    <target name="init">
+
+        <!-- Create a time stamp -->
+        <tstamp description="${user.timezone}"/>
+        <!-- Create a build directory structure used by compile -->
+        <mkdir dir="${bin.dir}" />
+
+    </target>
+
+    <target name="clean" description="remove intermediate files">
+
+        <!-- Clean project workspace for future development/builds -->
+        <delete dir="${bin.dir}" />
+        <delete dir="${package.dir}" />
+        <delete dir="${out.dir}" />
+
+    </target>
+
+    <target name="compile" depends="init" description="compile the Java source code tree to class files">
+
+        <javac srcdir="${src.dir}" destdir="${bin.dir}" />
+
+    </target>
+
+    <target name="package" depends="compile" description="package the Java class files into a jar">
+
+        <jar destfile = "${package.dir}/${bin.name}.jar" basedir = "${bin.dir}">
+
+            <manifest>
+                <attribute name="Created-By" value="colinator27 and BenjaminUrquhart"/>
+                <attribute name="Manifest-Version" value="1.0" />
+                <attribute name="Main-Class" value = "me.colinator27.Main" />
+                <attribute name="Built-By" value="${user.name}"/>
+            </manifest>
+        </jar>
+
+    </target>
+
+</project>
